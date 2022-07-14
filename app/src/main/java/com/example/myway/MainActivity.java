@@ -1,34 +1,50 @@
 package com.example.myway;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.WindowManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.util.Log;
+import android.widget.RelativeLayout;
 
-public class MainActivity extends AppCompatActivity {
-    WebView main_map_view;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
+public class MainActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener{
+    RelativeLayout mapViewContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        main_map_view = findViewById(R.id.main_map_view);
-        WebSettings webSettings = main_map_view.getSettings();
-        webSettings.setJavaScriptEnabled(true); // allow the js
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //화면이 계속 켜짐
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_USER);
-
-        main_map_view.setWebViewClient(new WebViewClient());
-        main_map_view.loadUrl("https://www.google.co.kr/maps/");
-
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.hide(); // 액션바 숨기기
+        MapView mapView;
+        mapViewContainer = (RelativeLayout) findViewById(R.id.map_view);
+        mapView = new MapView(this);
+        mapViewContainer.addView(mapView);
+        mapView.setCurrentLocationEventListener(this);
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
     }
+
+
+    @Override
+    public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
+        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
+        Log.d("위치 업데이트 ",String.format("업데이트 됨(%f,%f)",mapPointGeo.latitude,mapPointGeo.longitude));
+        MapPoint currentMapPoint = MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude,mapPointGeo.longitude);
+        mapView.setMapCenterPoint(currentMapPoint, true);
+    }
+
+    @Override
+    public void onCurrentLocationDeviceHeadingUpdate(MapView mapView, float v) {
+
+    }
+
+    @Override
+    public void onCurrentLocationUpdateFailed(MapView mapView) {
+
+    }
+
+    @Override
+    public void onCurrentLocationUpdateCancelled(MapView mapView) {
+
+    }
+
 }
