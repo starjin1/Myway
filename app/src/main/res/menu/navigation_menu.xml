@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_name"
+        android:actionLayout="@layout/mypage_layout"
+        android:icon="@drawable/ic_user_circle"
+        android:title="@string/user_default_name" />
+
+    <item android:title="Menu">
+        <menu>
+            <item
+                android:id="@+id/nav_map02"
+                android:icon="@drawable/ic_map_location_dot_solid"
+                android:title="@string/find_road" >
+
+            </item>
+
+            <item
+                android:id="@+id/nav_train"
+                android:icon="@drawable/ic_train_subway_solid"
+                android:title="@string/train_road" >
+            </item>
+
+            <item
+                android:id="@+id/nav_location"
+                android:icon="@drawable/ic_menu_search"
+                android:title="@string/search_location" >
+            </item>
+        </menu>
+    </item>
+
+
+
+</menu>
