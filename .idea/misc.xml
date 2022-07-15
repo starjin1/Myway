@@ -8,8 +8,11 @@
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/button_radius.xml" value="0.19114583333333332" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/google_login_btn.xml" value="0.12072368421052632" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic__123025_logo_google_g_icon.xml" value="0.12072368421052632" />
+        <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic_android_icon_home.xml" value="0.125" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic_arrow_left.xml" value="0.12072368421052632" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic_bars_icon.xml" value="0.16025641025641027" />
+        <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.16096491228070176" />
+        <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.16096491228070176" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic_launcher_background.xml" value="0.12072368421052632" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic_location.xml" value="0.16025641025641027" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/drawable/ic_magnifying_glass_solid.xml" value="0.16025641025641027" />
@@ -29,7 +32,7 @@
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/layout/calendar_layout.xml" value="0.15087719298245614" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/layout/content_main.xml" value="0.1638888888888889" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/layout/fragment_second.xml" value="0.1638888888888889" />
-        <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/layout/login_layout.xml" value="0.10666666666666667" />
+        <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/layout/login_layout.xml" value="0.15087719298245614" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/layout/map_layout.xml" value="0.15087719298245614" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/layout/mypage_layout.xml" value="0.14358974358974358" />
         <entry key="..\:/Users/pahk1/AndroidStudioProjects/MyWay/app/src/main/res/layout/register_layout.xml" value="0.147008547008547" />

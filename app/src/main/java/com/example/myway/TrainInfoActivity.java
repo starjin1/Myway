@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,6 +38,15 @@ public class TrainInfoActivity extends AppCompatActivity {
         navigationView.setItemIconTintList(null);
         NavigationViewHelper.enableNavigation(mContext,navigationView);
 
+        ImageView backBtn = (ImageView) findViewById(R.id.rignt_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TrainInfoActivity.super.onBackPressed();
+            }
+        });
+
     }
+
 
 }

@@ -23,8 +23,8 @@ public class StartActivity extends AppCompatActivity {
             }
         },3000);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide(); // 액션바 숨기기
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide(); // 액션바 숨기기
     }
     @Override
     protected void onPause() {

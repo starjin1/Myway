@@ -9,24 +9,23 @@
 
     <ImageView
         android:id="@+id/appname"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/appname" />
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/map_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/main_find_load"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -37,7 +36,10 @@
             android:id='@+id/map_view'
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -60,7 +62,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/white_btn_bg"
         android:text="길찾기"
-        android:textColor="#000000"
+        android:textColor="#212121"
         app:layout_constraintBottom_toTopOf="@+id/main_linemap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -77,7 +79,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/white_btn_bg"
         android:text="지하철 노선도"
-        android:textColor="#000000"
+        android:textColor="#212121"
         app:layout_constraintBottom_toTopOf="@+id/main_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -92,7 +94,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/white_btn_bg"
         android:text="역 정보 검색"
-        android:textColor="#000000"
+        android:textColor="#212121"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -100,22 +102,32 @@
 
     <ImageView
         android:id="@+id/main_personal"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
     <ImageView
         android:id="@+id/main_calendar"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/main_personal"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
+
+    <ImageView
+        android:id="@+id/main_mapBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/main_calendar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_circle_plus_solid" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
