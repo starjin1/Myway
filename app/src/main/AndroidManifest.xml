@@ -17,6 +17,16 @@
         android:theme="@style/Theme.MyWay"
         android:networkSecurityConfig="@xml/network_security_config">
 
+        <activity android:name=".NoticeActivity"
+            android:exported="true"/>
+
+        <activity android:name=".DeleteAccountActivity"
+            android:exported="true"/>
+        <activity android:name=".PwdEditActivity"
+            android:exported="true"/>
+        <activity android:name=".ProfileEditActivity"
+            android:exported="true"/>
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="23216feff6e84dfa4e1c7167888270a7" />
