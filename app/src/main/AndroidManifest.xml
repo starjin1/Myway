@@ -16,6 +16,13 @@
         android:theme="@style/Theme.MyWay"
         android:usesCleartextTraffic="true">
 
+        <activity
+            android:name=".DirectionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChatbotActivity"
+            android:exported="true" />
+
         <activity android:name=".NoticeActivity"
             android:exported="true"/>
 

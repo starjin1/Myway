@@ -45,6 +45,15 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
             }
         });
 
+        Button button3 = (Button) findViewById(R.id.main_find_load);
+        button3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getApplicationContext(), ChatbotActivity.class);
+                startActivity(intent);
+            }
+        });
+
         ImageView calendarImg = (ImageView) findViewById(R.id.main_calendar);
         calendarImg.setOnClickListener(new View.OnClickListener() {
             @Override

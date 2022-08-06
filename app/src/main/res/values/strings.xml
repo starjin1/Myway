@@ -6,7 +6,7 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="user_default_name">로그인을 해주세요</string>
+    <string name="user_default_name">로그인</string>
     <string name="find_road">길찾기</string>
     <string name="train_road">지하철 노선도</string>
     <string name="search_location">역 정보 검색 </string>
