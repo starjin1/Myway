@@ -11,6 +11,11 @@ public class DirectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            Thread.sleep(1200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_direction);
 
         String[] ss = ((ChatbotActivity)ChatbotActivity.context).startArr;
