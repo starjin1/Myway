@@ -1,5 +1,6 @@
 package com.example.myway;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.google.cloud.dialogflow.v2.SessionsClient;
 import com.google.cloud.dialogflow.v2.SessionsSettings;
 import com.google.cloud.dialogflow.v2.TextInput;
 import com.google.common.collect.Lists;
+import com.google.firebase.database.snapshot.Index;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -42,6 +44,11 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
     EditText editMessage;
     ImageButton btnSend;
 
+    public static Context context;
+
+    public String[] startArr;
+    public String[] arrivalArr;
+
     //dialogflow
     private SessionsClient sessionsClient;
     private SessionName sessionName;
@@ -50,6 +57,8 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = this;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatbot);
 
@@ -118,6 +127,7 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
         new SendMessageInBg(this, sessionName, sessionsClient, input).execute();
     }
 
+
     @Override
     public void callback(DetectIntentResponse returnResponse) {
         if(returnResponse!=null) {
@@ -129,6 +139,26 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
                 if(botReply.contains("완료했습니다.")){
                     Intent intent = new Intent(getApplicationContext(), DirectionActivity.class);
                     startActivity(intent);
+                }
+                if(botReply.contains("출발역이")){
+                    String S_botReply = botReply;
+                    startArr = S_botReply.split(" ");
+
+                    try{
+                        Log.d(TAG, "출발역 값 확인: "+startArr[2]);
+                    }catch(IndexOutOfBoundsException e){
+                        System.out.println(e);
+                    }
+                }
+                if(botReply.contains("도착역이")){
+                    String A_botReply = botReply;
+                    arrivalArr = A_botReply.split(" ");
+
+                    try{
+                        Log.d(TAG, "도착역 값 확인: "+arrivalArr[2]);
+                    }catch(IndexOutOfBoundsException e){
+                        System.out.println(e);
+                    }
                 }
             }else {
                 Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
