@@ -136,10 +136,6 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
                 messageList.add(new Message(botReply, true));
                 chatAdapter.notifyDataSetChanged();
                 Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
-                if(botReply.contains("완료했습니다.")){
-                    Intent intent = new Intent(getApplicationContext(), DirectionActivity.class);
-                    startActivity(intent);
-                }
                 if(botReply.contains("출발역이")){
                     String S_botReply = botReply;
                     startArr = S_botReply.split(" ");
@@ -159,6 +155,12 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
                     }catch(IndexOutOfBoundsException e){
                         System.out.println(e);
                     }
+                }
+                if(botReply.contains("완료했습니다.")){
+                    Intent intent = new Intent(getApplicationContext(), DirectionActivity.class);
+                    intent.putExtra("Sstation",startArr);
+                    intent.putExtra("Astation",arrivalArr);
+                    startActivity(intent);
                 }
             }else {
                 Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();

@@ -23,6 +23,7 @@
         android:ems="10"
 
         android:inputType="textPersonName"
+        android:text="출발역"
         app:layout_constraintBottom_toTopOf="@+id/arrival_station_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
         android:layout_marginBottom="92dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="도착역"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
