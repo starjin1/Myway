@@ -48,16 +48,16 @@ public class MapActivity extends AppCompatActivity implements MapView.CurrentLoc
         mapView = new MapView(this);
         mapViewContainer.addView(mapView);
         mapView.setCurrentLocationEventListener(this);
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
     }
 
     @Override
     public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
-    MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-    Log.d("위치 업데이트 ",String.format("업데이트 됨(%f,%f)",mapPointGeo.latitude,mapPointGeo.longitude));
-    MapPoint currentMapPoint = MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude,mapPointGeo.longitude);
-    mapView.setMapCenterPoint(currentMapPoint, true);
+        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
+        Log.d("위치 업데이트 ",String.format("업데이트 됨(%f,%f)",mapPointGeo.latitude,mapPointGeo.longitude));
+        MapPoint currentMapPoint = MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude,mapPointGeo.longitude);
+        mapView.setMapCenterPoint(currentMapPoint, true);
 
     }
 
@@ -99,6 +99,4 @@ public class MapActivity extends AppCompatActivity implements MapView.CurrentLoc
         super.finish();
     }
 
-
-
-    }
+}

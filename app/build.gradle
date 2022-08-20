@@ -63,6 +63,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation platform('com.google.firebase:firebase-bom:30.3.1')
 
+    implementation files('libs/libDaumMapAndroid.jar')
+
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
 
