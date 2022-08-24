@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,25 +28,17 @@ public class DirectionActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_direction);
 
+        //출발역 text 지정 추후 Edittext -> TextView로 변경 예정
         String[] ss = intent.getStringArrayExtra("Sstation");
-        String sss = ss[2];
+        String Depart_station = ss[2];
         EditText sText = (EditText) findViewById(R.id.start_station_view);
-        sText.setText(ss[2]);
+        sText.setText(Depart_station);
 
+        //도착역 text 지정 추후 Edittext -> TextView로 변경 예정
         String[] as = intent.getStringArrayExtra("Astation");
-        String ass = as[2];
+        String Arrival_station = as[2];
         EditText aText = (EditText) findViewById(R.id.arrival_station_view);
-        aText.setText(as[2]);
-
-//        String[] ss = ((ChatbotActivity)ChatbotActivity.context).startArr;
-//        String sss = ss[2];
-//        EditText sText = (EditText) findViewById(R.id.start_station_view);
-//        sText.setText(ss[2]);
-//
-//        String[] as = ((ChatbotActivity)ChatbotActivity.context).arrivalArr;
-//        EditText aText = (EditText) findViewById(R.id.arrival_station_view);
-//        aText.setText(as[2]);
-//        String ass = as[2];
+        aText.setText(Arrival_station);
 
         ////////////////////지하철 맵 생성
         HashMap<String, HashSet<String>> transferMap= new HashMap<String, HashSet<String>>();
@@ -109,12 +103,36 @@ public class DirectionActivity extends AppCompatActivity {
             }
 
             ////////////////////////////////////////////////////////////////
-            String depart = sss.toString();
-            String arrival = ass.toString();
 
+            //출발역, 도착역 지정 - toString() 하지 않을시 오류 발생
+            String depart = Depart_station.toString();
+            String arrival = Arrival_station.toString();
+
+            //출발역, 도착역 노드 지정, 다익스트라 알고리즘 실행
             StationNode departNode=graph.findNode(depart);
             Dijkstra dijsktra = new Dijkstra(graph,departNode,arrival);
             dijsktra.disjkstra();
+
+            //중간 역들 저장 및 "," 기준으로 나누어 sts배열에 저장
+            String need_stations = dijsktra.stations;
+            String[] sts = need_stations.split(",");
+
+            //ArrayList 형식으로 중복된 역 제거 - 환승역이 두번씩 표기되는 문제 해결
+            ArrayList<String> stList = new ArrayList<>();
+            for (String item : sts){
+                if(!stList.contains(item))
+                    stList.add(item);
+            }
+
+            //다시 배열 형식으로 바꾸고 맨 첫번째 역에 null이 붙는 문제 해결
+            String[] stData = stList.toArray(new String[stList.size()]);
+            stData[0] = stData[0].replace("null","");
+
+            System.out.println(Arrays.toString(stData));
+
+            EditText stTest = (EditText) findViewById(R.id.stations_view);
+            stTest.setText(Arrays.toString(stData));
+
 
         } catch (IOException e) {
             System.err.println(e); // 에러가 있다면 메시지 출력

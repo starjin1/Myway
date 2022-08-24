@@ -60,7 +60,7 @@ public class ListGraph {
                 return element;
             }
         }
-        return null;
+        return edgeList.element();
 
     }
     public StationNode findNode(int vertex){

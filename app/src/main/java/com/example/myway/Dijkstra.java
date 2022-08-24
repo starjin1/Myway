@@ -1,8 +1,8 @@
 package com.example.myway;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Arrays;
 
 public class Dijkstra {
 
@@ -12,6 +12,8 @@ public class Dijkstra {
     private HashMap<Integer, Integer> prevMap;
     private StationNode depart;
     private String arrival;
+
+    public String stations;
 
     public Dijkstra(ListGraph g, StationNode d, String a){
         depart=d;
@@ -41,6 +43,7 @@ public class Dijkstra {
             Set.add(small);
             //u: the edge vertexes of small....
             int c=0;
+
             LinkedList<StationNode> uedgelist= new LinkedList<StationNode>();
             uedgelist=(LinkedList<StationNode>) graph.getEdges(small).clone();//find the edges of small node (num,bvertex,time interval)
 
@@ -70,6 +73,7 @@ public class Dijkstra {
     }
 
     public void traverseStations(int vertex){
+        stations += graph.findNode(prevMap.get(vertex)).getStation() + ",";
         System.out.println(graph.findNode(prevMap.get(vertex)).getStation());
         if(prevMap.containsKey(prevMap.get(vertex)))
             traverseStations(prevMap.get(vertex));
