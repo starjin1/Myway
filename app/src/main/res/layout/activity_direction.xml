@@ -10,11 +10,12 @@
         android:id="@+id/start_station_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
 
         android:ems="10"
         android:inputType="textPersonName"
         android:text="출발역"
+        app:layout_constraintBottom_toTopOf="@+id/stations_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,22 +24,50 @@
         android:id="@+id/arrival_station_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="30dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="도착역"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stations_view" />
+
+    <EditText
+        android:id="@+id/timeView"
+        android:layout_width="134dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="204dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="현재 혼잡도:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrival_station_view"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/timeView2"
+        android:layout_width="115dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="혼잡도"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrival_station_view" />
 
     <EditText
         android:id="@+id/stations_view"
         android:layout_width="232dp"
-        android:layout_height="467dp"
+        android:layout_height="330dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/arrival_station_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_station_view" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.myway;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseIntArray;
 import android.widget.EditText;
 import java.io.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import android.content.Context;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,21 @@ public class DirectionActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_direction);
 
+        //시간에 따른 혼잡도 표시
+        String[] tt= intent.getStringArrayExtra("Tlist");//시간 받아오기
+        String Timeset3 = tt[0];
+
+        int Timeset4 = Integer.parseInt(Timeset3); //if문 위해 String->int로 타입 변환
+
+        EditText tText =(EditText) findViewById(R.id.timeView2);
+        //출퇴근시간 6-8/17-19시 사이면->혼잡 이외면 여유 반환.. 추후 세분화 예정
+        if (((Timeset4>=6)&&(Timeset4<=8))||((Timeset4>=17)&&(Timeset4<=19))) {
+            tText.setText("혼잡");
+        }else{
+            tText.setText("여유");
+        }
+
+
         //출발역 text 지정 추후 Edittext -> TextView로 변경 예정
         String[] ss = intent.getStringArrayExtra("Sstation");
         String Depart_station = ss[2];
@@ -44,7 +61,7 @@ public class DirectionActivity extends AppCompatActivity {
         ////////////////////지하철 맵 생성
         HashMap<String, HashSet<String>> transferMap= new HashMap<String, HashSet<String>>();
 
-        String fileName = "data.txt";
+        String fileName = "mywaydata.txt";
 
         int c=0;
         try {

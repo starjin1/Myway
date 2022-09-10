@@ -28,13 +28,14 @@ import com.google.cloud.dialogflow.v2.SessionsClient;
 import com.google.cloud.dialogflow.v2.SessionsSettings;
 import com.google.cloud.dialogflow.v2.TextInput;
 import com.google.common.collect.Lists;
-import com.google.firebase.database.snapshot.Index;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ChatbotActivity extends AppCompatActivity implements BotReply {
 
@@ -48,12 +49,19 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
 
     public String[] startArr;
     public String[] arrivalArr;
+    private String time3;
+    public String[] TimeList;
+    public String Timeset;
 
     //dialogflow
     private SessionsClient sessionsClient;
     private SessionName sessionName;
     private String uuid = UUID.randomUUID().toString();
     private String TAG = "mainactivity";
+
+    long mNow;
+    Date mDate;
+    SimpleDateFormat mFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,9 +147,15 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
                 if(botReply.contains("출발역이")){
                     String S_botReply = botReply;
                     startArr = S_botReply.split(" ");
+                    String time3 = mFormat.format(System.currentTimeMillis());//시간 가져와서 정해진 포멧으로
+                    Date date = new Date();//Date 객체 생성
+                    String Tlist = mFormat.format(date);//split하기 위해 Tlist에 저장
+                    TimeList = Tlist.split(":");//split
+                    //String Timeset=TimeList[0];//분,초 제외 현재 시각만 받아옴
 
                     try{
                         Log.d(TAG, "출발역 값 확인: "+startArr[2]);
+                        Log.d(TAG,"시간확인"+TimeList[0]);
                     }catch(IndexOutOfBoundsException e){
                         System.out.println(e);
                     }
@@ -160,6 +174,7 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
                     Intent intent = new Intent(getApplicationContext(), DirectionActivity.class);
                     intent.putExtra("Sstation",startArr);
                     intent.putExtra("Astation",arrivalArr);
+                    intent.putExtra("Tlist",TimeList);
                     startActivity(intent);
                 }
             }else {
@@ -169,5 +184,7 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
             Toast.makeText(this, "연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
 }

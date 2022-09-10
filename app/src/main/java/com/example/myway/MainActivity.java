@@ -4,9 +4,13 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.location.LocationManager;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -27,6 +32,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Base64;
 import android.util.Log;
+
+import com.google.android.material.tabs.TabLayout;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -49,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
 
         mapViewContainer = (RelativeLayout) findViewById(R.id.map_view);
         mapView = new MapView(this);
+        Log.e(LOG_TAG,"mapView");
         mapViewContainer.addView(mapView);
         mapView.setCurrentLocationEventListener(this);
         if (!checkLocationServicesStatus()) {
@@ -117,27 +128,49 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         });
 
     }
-//    private void initMaoView() {
-//        mapViewContainer = (RelativeLayout) findViewById(R.id.map_view);
-//        mapView = new MapView(this);
-//        mapViewContainer.addView(mapView);
-//        mapView.setCurrentLocationEventListener(this);
-////        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
-//    }
 
-//    @Override
-//    protected void onResume() {
-//        ConstraintLayout coord = (ConstraintLayout)findViewById(R.id.map_container);
-//        super.onResume();
-//        if (coord.getChildAt(0)==null){
-//            try{
-//                initMaoView();
-//
-//            }catch (RuntimeException re){
-//                Log.e("MapActivity","onResume : "+String.valueOf(re));
-//            }
-//        }
-//    }
+    private void getHashKey(){
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (packageInfo == null)
+            Log.e("KeyHash", "KeyHash:null");
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            } catch (NoSuchAlgorithmException e) {
+                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+            }
+        }
+    }
+
+    private void initMaoView() {
+        mapViewContainer = (RelativeLayout) findViewById(R.id.map_view);
+        mapView = new MapView(this);
+        mapViewContainer.addView(mapView);
+        mapView.setCurrentLocationEventListener(this);
+//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+    }
+
+    @Override
+    protected void onResume() {
+        ConstraintLayout coord = (ConstraintLayout)findViewById(R.id.map_container);
+        super.onResume();
+        if (coord.getChildAt(0)==null){
+            try{
+                initMaoView();
+
+            }catch (RuntimeException re){
+                Log.e("MapActivity","onResume : "+String.valueOf(re));
+            }
+        }
+    }
 
     @Override
     protected void onDestroy() {
@@ -300,28 +333,4 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
 //    public void onCurrentLocationUpdateCancelled(MapView mapView) {
 //
 //    }
-
-
-    private void getHashKey(){
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (packageInfo == null)
-            Log.e("KeyHash", "KeyHash:null");
-
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
-            }
-        }
-    }
-
-
 }
