@@ -6,6 +6,7 @@ import android.widget.EditText;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -123,10 +124,13 @@ public class DirectionActivity extends AppCompatActivity {
                 if(!stList.contains(item))
                     stList.add(item);
             }
+            stList.set(0, stList.get(0).replace("null",""));
+            Collections.reverse(stList);
 
-            //다시 배열 형식으로 바꾸고 맨 첫번째 역에 null이 붙는 문제 해결
+            //다시 배열 형식으로 바꾸고 맨 첫번째 역(reverse 했기에 맨 마지막 역이었던 것)에 null이 붙는 문제 해결
+            //stList[-1] = stList[-1].replace("null","");
             String[] stData = stList.toArray(new String[stList.size()]);
-            stData[0] = stData[0].replace("null","");
+
 
             System.out.println(Arrays.toString(stData));
 
