@@ -16,7 +16,7 @@
     <TextView
         android:id="@+id/textview_main_status"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:layout_weight="40"
@@ -31,12 +31,27 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="80"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_place"
+        app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_time"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button_main_get_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:text="Get Event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_main_result"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -64,31 +79,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_title" />
 
-    <EditText
-        android:id="@+id/textview_main_calendar_place"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:hint="캘린더 일정 장소 입력"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_detail"
-        tools:ignore="MissingConstraints" />
-
-<!--    <EditText-->
-<!--        android:id="@+id/textview_main_calendar_time"-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:gravity="center"-->
-<!--        android:hint="일정 시간 (클릭)"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textview_main_calendar_date"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_place"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
-<!--    <EditText-->
+    <!--    <EditText-->
 <!--        android:id="@+id/textview_main_calendar_date"-->
 <!--        android:layout_width="150dp"-->
 <!--        android:layout_height="50dp"-->
@@ -99,6 +90,32 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_place"-->
 <!--        tools:ignore="MissingConstraints" />-->
+
+    <EditText
+        android:id="@+id/textview_main_calendar_place"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:hint="캘린더 일정 장소 입력"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_detail"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/textview_main_calendar_time"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:hint="일정 시간 (클릭)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_place"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button_main_add_event"
@@ -131,17 +148,17 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button_main_get_event"
+        android:id="@+id/alarm_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:text="Get Event"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        android:text="Alarm"
+        app:layout_constraintBottom_toTopOf="@+id/textview_main_result"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_main_result"
+        app:layout_constraintStart_toEndOf="@+id/textview_main_calendar_time"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_add_event"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

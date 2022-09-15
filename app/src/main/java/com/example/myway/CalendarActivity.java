@@ -5,7 +5,6 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-//
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -27,7 +26,7 @@ import android.Manifest;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog; // ㅊㄱ
+import android.app.TimePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -38,6 +37,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
@@ -47,7 +47,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker; // ㅊㄱ
+import android.widget.TimePicker;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -55,7 +55,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.Calendar; // ㅊㄱ
+import java.util.Calendar;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -74,9 +74,10 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
     private Button mGetEventButton;
     private Button mAddEventButton;
     private Button mAddCalendarButton;
-//    private EditText meditText_detail; // ㅊㄱ
-//    private EditText meditText_title; // ㅊㄱ
-//    private EditText meditText_place; // ㅊㄱ
+    private EditText meditText_detail;
+    private EditText meditText_title;
+    private EditText meditText_place;
+    private EditText meditText_time;
     ProgressDialog mProgress;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -86,6 +87,9 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
+
+    private Button alarmBtn;
+    private NotificationHelper mNotificationhelper;
 
 //    Calendar myCalendar = Calendar.getInstance();
 
@@ -111,11 +115,14 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         mStatusText = (TextView) findViewById(R.id.textview_main_status);
         mResultText = (TextView) findViewById(R.id.textview_main_result);
 
-        // ㅊㄱ
-//        meditText_detail = (EditText) findViewById(R.id.textview_main_calendar_detail);
-//        meditText_title = (EditText) findViewById(R.id.textview_main_calendar_title);
-//        meditText_place = (EditText) findViewById(R.id.textview_main_calendar_place);
-//        meditText_time = (EditText) findViewById(R.id.textview_main_calendar_time);
+        //
+        meditText_detail = (EditText) findViewById(R.id.textview_main_calendar_detail);
+        meditText_title = (EditText) findViewById(R.id.textview_main_calendar_title);
+        meditText_place = (EditText) findViewById(R.id.textview_main_calendar_place);
+        meditText_time = (EditText) findViewById(R.id.textview_main_calendar_time);
+
+        alarmBtn = findViewById(R.id.alarm_btn);
+
 //        meditText_date = (EditText) findViewById(R.id.textview_main_calendar_date);
 
         // ㅊㄱ
@@ -128,31 +135,32 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 //                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 //            }
 //        });
-//        final EditText meditText_time = (EditText) findViewById(R.id.textview_main_calendar_time);
-//        meditText_time.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Calendar mcurrentTime = Calendar.getInstance();
-//                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)+9;
-//                int minute = mcurrentTime.get(Calendar.MINUTE);
-//                TimePickerDialog mTimePicker;
-//                mTimePicker = new TimePickerDialog(CalendarActivity.this, new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selecteMinute) {
-//                        String state = "AM";
-//
-//                        if (selectedHour > 12) {
-//                            selectedHour -= 12;
-//                            state = "PM";
-//                        }
-//                        meditText_time.setText(state+" " +selectedHour+"시"+selecteMinute+"분");
-//                        meditText_time.setText(selectedHour+"시"+selecteMinute+"분");
-//                    }
-//                }, hour, minute, false);
-//                mTimePicker.setTitle("Select Time");
-//                mTimePicker.show();
-//            }
-//        });
+
+        final EditText meditText_time = (EditText) findViewById(R.id.textview_main_calendar_time);
+        meditText_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)+9;
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(CalendarActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selecteMinute) {
+                        String state = "AM";
+
+                        if (selectedHour > 12) {
+                            selectedHour -= 12;
+                            state = "PM";
+                        }
+                        meditText_time.setText(state+" " +selectedHour+"시"+selecteMinute+"분");
+                        meditText_time.setText(selectedHour+"시"+selecteMinute+"분");
+                    }
+                }, hour, minute, false);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
 
         // 버튼 클릭으로 동작 테스트
         mAddCalendarButton.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +188,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         mGetEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mGetEventButton.setEnabled(false); ///////////////////////////
+                mGetEventButton.setEnabled(false);
                 mStatusText.setText("");
                 mID = 3; // 이벤트 가져오기
                 getResultFromApi();
@@ -206,6 +214,22 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                 getApplicationContext(),
                 Arrays.asList(SCOPES)
         ).setBackOff(new ExponentialBackOff());
+
+        mNotificationhelper = new NotificationHelper(this);
+
+        alarmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendOnChannel1();
+            }
+        });
+    }
+
+    // /*String title, String message*/
+    public void sendOnChannel1() {
+//        NotificationCompat.Builder nb = mNotificationhelper.getChannel1Notification(title, message);
+        NotificationCompat.Builder nb = mNotificationhelper.getChannel1Notification("title", "message");
+        mNotificationhelper.getManager().notify(1, nb.build());
     }
 
     // ㅊㄱ
@@ -374,10 +398,10 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         private CalendarActivity mActivity;
         List<String> eventStrings = new ArrayList<String>();
 
-        // ㅊㄱ
-//        String value_detail = meditText_detail.getText().toString();
-//        String value_title = meditText_title.getText().toString();
-//        String value_place = meditText_place.getText().toString();
+        //
+        String value_detail = meditText_detail.getText().toString();
+        String value_title = meditText_title.getText().toString();
+        String value_place = meditText_place.getText().toString();
 
         public MakeRequestTask(CalendarActivity activity, GoogleAccountCredential credential) {
             mActivity = activity;
@@ -498,12 +522,9 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
             }
 
             Event event = new Event()
-                    .setSummary("구글 캘린더 테스트")
-//                    .setSummary(value_title)
-                    .setLocation("서울시")
-//                    .setLocation(value_place)
-                    .setDescription("캘린더에 이벤트 추가하는 것을 테스트합니다.");
-//                    .setDescription(value_detail);
+                    .setSummary(value_title)
+                    .setLocation(value_place)
+                    .setDescription(value_detail);
 
             java.util.Calendar calander;
 
