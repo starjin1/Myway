@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         calendarImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("error", "error");
                 Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
                 startActivity(intent);
             }
