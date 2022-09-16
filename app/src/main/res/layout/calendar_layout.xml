@@ -79,18 +79,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_title" />
 
-    <!--    <EditText-->
-<!--        android:id="@+id/textview_main_calendar_date"-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginStart="40dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:gravity="center"-->
-<!--        android:hint="일정 날짜 (클릭)"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textview_main_calendar_place"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
     <EditText
         android:id="@+id/textview_main_calendar_place"
         android:layout_width="200dp"

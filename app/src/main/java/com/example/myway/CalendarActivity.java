@@ -93,19 +93,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
     private Button alarmBtn;
     private NotificationHelper mNotificationhelper;
-    private String alarm_title; ////////////////////////////
-
-//    Calendar myCalendar = Calendar.getInstance();
-
-//    DatePickerDialog.OnDateSetListener myDatePicker = new DatePickerDialog.OnDateSetListener() {
-//        @Override
-//        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//            myCalendar.set(Calendar.YEAR, year);
-//            myCalendar.set(Calendar.MONTH, month);
-//            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//            updateLabel();
-//        }
-//    };
+    private String alarm_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,18 +115,6 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         alarmBtn = findViewById(R.id.alarm_btn);
 
         alarm_title = meditText_title.getText().toString();
-
-//        meditText_date = (EditText) findViewById(R.id.textview_main_calendar_date);
-
-//        meditText_date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new DatePickerDialog(CalendarActivity.this, myDatePicker,
-//                        myCalendar.get(Calendar.YEAR),
-//                        myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-//            }
-//        });
 
         final EditText meditText_time = (EditText) findViewById(R.id.textview_main_calendar_time);
         meditText_time.setOnClickListener(new View.OnClickListener() {
@@ -235,15 +211,6 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         NotificationCompat.Builder nb = mNotificationhelper.getChannel1Notification(title, message);
         mNotificationhelper.getManager().notify(0, nb.build());
     }
-
-    // ㅊㄱ
-//    private void updateLabel() {
-//        String myFormat = "yyyy/MM/dd";
-//        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
-//
-//        EditText meditText_date = (EditText) findViewById(R.id.textview_main_calendar_date);
-//        meditText_date.setText(sdf.format(myCalendar.getTime()));
-//    }
 
     // Google Calendar API를 사용하기 위한 조건
     private String getResultFromApi() {
@@ -585,14 +552,14 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 //        );
 //    }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home: {
-//                finish();
-//                return true;
-//            }
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

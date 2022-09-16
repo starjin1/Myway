@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
             @Override
             public void onClick(View view) {
                 Log.d("error", "error");
-                Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
+                Intent intent = new Intent(getApplicationContext(),CalendarMainActivity.class);
                 startActivity(intent);
             }
         });
