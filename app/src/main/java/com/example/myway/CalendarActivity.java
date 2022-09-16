@@ -1,5 +1,7 @@
 package com.example.myway;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -38,6 +40,7 @@ import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
@@ -90,6 +93,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
     private Button alarmBtn;
     private NotificationHelper mNotificationhelper;
+    private String alarm_title; ////////////////////////////
 
 //    Calendar myCalendar = Calendar.getInstance();
 
@@ -115,7 +119,6 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         mStatusText = (TextView) findViewById(R.id.textview_main_status);
         mResultText = (TextView) findViewById(R.id.textview_main_result);
 
-        //
         meditText_detail = (EditText) findViewById(R.id.textview_main_calendar_detail);
         meditText_title = (EditText) findViewById(R.id.textview_main_calendar_title);
         meditText_place = (EditText) findViewById(R.id.textview_main_calendar_place);
@@ -123,9 +126,10 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
         alarmBtn = findViewById(R.id.alarm_btn);
 
+        alarm_title = meditText_title.getText().toString();
+
 //        meditText_date = (EditText) findViewById(R.id.textview_main_calendar_date);
 
-        // ㅊㄱ
 //        meditText_date.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -220,16 +224,16 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         alarmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendOnChannel1();
+                String title = meditText_title.getText().toString();
+                String message = meditText_detail.getText().toString();
+                sendOnChannel1(title, message);
             }
         });
     }
 
-    // /*String title, String message*/
-    public void sendOnChannel1() {
-//        NotificationCompat.Builder nb = mNotificationhelper.getChannel1Notification(title, message);
-        NotificationCompat.Builder nb = mNotificationhelper.getChannel1Notification("title", "message");
-        mNotificationhelper.getManager().notify(1, nb.build());
+    public void sendOnChannel1(String title, String message) {
+        NotificationCompat.Builder nb = mNotificationhelper.getChannel1Notification(title, message);
+        mNotificationhelper.getManager().notify(0, nb.build());
     }
 
     // ㅊㄱ
@@ -442,7 +446,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         private String getEvent() throws IOException {
             DateTime now = new DateTime(System.currentTimeMillis());
 
-            String calendarID = getCalendarID("CalendarTitle");
+            String calendarID = getCalendarID("MywayCalendar");
             if (calendarID == null) {
                 return "캘린더를 먼저 생성하세요.";
             }
@@ -465,14 +469,14 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
         }
 
         private String createCalendar() throws IOException {
-            String ids = getCalendarID("CalendarTitle");
+            String ids = getCalendarID("MywayCalendar");
             if (ids != null) {
                 return "이미 캘린더가 생성되어 있습니다.";
             }
 
 //             com.google.api.services.calendar.model.Calendar calendar = new Calendar();
             com.google.api.services.calendar.model.Calendar calendar = new com.google.api.services.calendar.model.Calendar();
-            calendar.setSummary("CalendarTitle");
+            calendar.setSummary("MywayCalendar");
             calendar.setTimeZone("Asia/Seoul");
 //             Calendar createdCalendar = mService.calendars().insert(calendar).execute();
             com.google.api.services.calendar.model.Calendar createdCalendar = mService.calendars().insert(calendar).execute();
@@ -516,7 +520,7 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
 
         private String addEvent() {
 
-            String calendarID = getCalendarID("CalendarTitle");
+            String calendarID = getCalendarID("MywayCalendar");
             if (calendarID == null) {
                 return "캘린더를 먼저 생성하세요.";
             }

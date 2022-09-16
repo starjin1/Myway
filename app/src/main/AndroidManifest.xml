@@ -4,9 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-<!--    추가-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 추가 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
@@ -25,16 +23,18 @@
         <activity
             android:name=".ChatbotActivity"
             android:exported="true" />
-
-        <activity android:name=".NoticeActivity"
-            android:exported="true"/>
-
-        <activity android:name=".DeleteAccountActivity"
-            android:exported="true"/>
-        <activity android:name=".PwdEditActivity"
-            android:exported="true"/>
-        <activity android:name=".ProfileEditActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".NoticeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DeleteAccountActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PwdEditActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ProfileEditActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -43,15 +43,12 @@
         <activity
             android:name=".StartActivity"
             android:exported="true">
-
-            <intent-filter> <!--스플래쉬 화면이 나타나도록 인덴트 필터를 MainActivity에서 StartActivity 안으로 옮김-->
+            <intent-filter> <!-- 스플래쉬 화면이 나타나도록 인덴트 필터를 MainActivity에서 StartActivity 안으로 옮김 -->
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -63,8 +60,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,8 +69,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MypageActivity"
+        <activity
+            android:name=".MypageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,8 +78,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".TrainActivity"
+        <activity
+            android:name=".TrainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -90,8 +87,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".TrainInfoActivity"
+        <activity
+            android:name=".TrainInfoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -99,8 +96,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MapActivity"
+        <activity
+            android:name=".MapActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -108,8 +105,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".RegisterActivity"
+        <activity
+            android:name=".RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -117,8 +114,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".CalendarActivity"
+        <activity
+            android:name=".CalendarActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -127,7 +124,5 @@
             </intent-filter>
         </activity>
     </application>
-
-
 
 </manifest>

@@ -23,4 +23,5 @@
     <style name="Theme.MyWay.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyWay.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
