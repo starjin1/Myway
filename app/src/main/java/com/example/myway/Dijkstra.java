@@ -50,7 +50,6 @@ public class Dijkstra {
             uedgelist=(LinkedList<StationNode>) graph.getEdges(small).clone();//find the edges of small node (num,bvertex,time interval)
 
             for(StationNode node: uedgelist){
-                //ntime = ntime + node.getInterval();
                 if(Set.contains(node.getVertex()))
                     continue;
                 if(distance[node.getVertex()]==-1||distance[node.getVertex()]>distance[small]+node.getInterval()){
@@ -62,8 +61,8 @@ public class Dijkstra {
                         System.out.println(depart.getStation());
                         traverseStations(node.getVertex());
                         System.out.println(arrival);
+                        //소요시간 저장
                         ntime = distance[node.getVertex()];
-
 
                         return;//end the method
                     }

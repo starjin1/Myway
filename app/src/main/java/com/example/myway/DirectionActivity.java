@@ -28,7 +28,6 @@ public class DirectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
 
-
         try {
             Thread.sleep(1200);
         } catch (InterruptedException e) {
@@ -169,6 +168,24 @@ public class DirectionActivity extends AppCompatActivity {
             System.err.println(e); // 에러가 있다면 메시지 출력
             System.exit(1);
         }
+
+        Button bButton = (Button) findViewById(R.id.BackButton);
+        bButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent1 = new Intent(getApplicationContext(), ChatbotActivity.class);
+                startActivity(intent1);
+            }
+        });
+
+        Button hButton = (Button) findViewById(R.id.HButton);
+        hButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent2);
+            }
+        });
 
     }
 }
