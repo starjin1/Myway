@@ -3,6 +3,7 @@ package com.example.myway;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -141,6 +142,13 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
                 mTimePicker.show();
             }
         });
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 100);
 
         // 버튼 클릭으로 동작 테스트
         mAddCalendarButton.setOnClickListener(new View.OnClickListener() {
@@ -530,36 +538,5 @@ public class CalendarActivity extends AppCompatActivity implements EasyPermissio
             String eventStrings = "created: " + event.getHtmlLink();
             return eventStrings;
         }
-    }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.calendar_layout);
-//
-//        OneDayDecorator oneDayDecorator = new OneDayDecorator();
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toobar_calendar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_left);
-//        getSupportActionBar().setTitle("");
-//        toolbar.setSubtitle("");
-//
-//        MaterialCalendarView materialCalendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
-//        materialCalendarView.addDecorator(
-//                oneDayDecorator
-//        );
-//    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: {
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
