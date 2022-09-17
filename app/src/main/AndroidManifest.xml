@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyWay.NoActionBar"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".TrainApiActivity"
+            android:exported="true" />
         <activity
             android:name=".DirectionActivity"
             android:exported="true" />
