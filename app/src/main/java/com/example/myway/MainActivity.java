@@ -1,15 +1,29 @@
 package com.example.myway;
 
+import static com.example.myway.CalendarActivity.REQUEST_ACCOUNT_PICKER;
+import static com.example.myway.CalendarActivity.REQUEST_AUTHORIZATION;
+import static com.example.myway.CalendarActivity.REQUEST_GOOGLE_PLAY_SERVICES;
+import static com.example.myway.CalendarActivity.REQUEST_PERMISSION_GET_ACCOUNTS;
+
 import android.Manifest;
+import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.location.LocationManager;
-import android.nfc.Tag;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -27,21 +41,38 @@ import androidx.core.content.ContextCompat;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.util.Base64;
-import android.util.Log;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
+import com.google.api.client.util.ExponentialBackOff;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.api.services.calendar.model.CalendarList;
+import com.google.api.services.calendar.model.CalendarListEntry;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.calendar.model.Events;
 
-import com.google.android.material.tabs.TabLayout;
-
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener{
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class MainActivity<mCredential> extends AppCompatActivity implements MapView.CurrentLocationEventListener {
     RelativeLayout mapViewContainer;
     MapView mapView;
     private View hader;
@@ -50,6 +81,19 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION};
     private static final String LOG_TAG = "MainActivity";
+
+    //
+    private static final String PREF_ACCOUNT_NAME = "accountName";
+    private static final String[] SCOPES = {CalendarScopes.CALENDAR};
+
+    // Google Calendar API에 접근하기 위해 사용되는 구글 캘린더 API 서비스 객체
+    private com.google.api.services.calendar.Calendar mService = null;
+
+    // Google Calendar API 호출 관련 메커니즘 및 AsyncTask을 재사용하기 위해 사용
+    private int mID = 0;
+
+    GoogleAccountCredential mCredential;
+    ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +148,9 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
             @Override
             public void onClick(View view) {
                 Log.d("error", "error");
+
                 Intent intent = new Intent(getApplicationContext(),CalendarMainActivity.class);
+
                 startActivity(intent);
             }
         });
@@ -207,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
                                            @NonNull int[] grandResults) {
 
         super.onRequestPermissionsResult(permsRequestCode, permissions, grandResults);
+
         if (permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
             // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
@@ -288,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         builder.create().show();
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
