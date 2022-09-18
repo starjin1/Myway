@@ -116,6 +116,16 @@ public class MainActivity<mCredential> extends AppCompatActivity implements MapV
 
 //        initMaoView();
 
+//        Button tb = (Button) findViewById(R.id.trbutton);
+//        tb.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(),TrainApiActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
+
         Button button = (Button) findViewById(R.id.main_linemap);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,8 @@ package com.example.myway;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseIntArray;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import java.io.*;
 import java.util.ArrayList;
@@ -22,8 +24,10 @@ public class DirectionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
+
         try {
             Thread.sleep(1200);
         } catch (InterruptedException e) {
@@ -131,6 +135,7 @@ public class DirectionActivity extends AppCompatActivity {
             Dijkstra dijsktra = new Dijkstra(graph,departNode,arrival);
             dijsktra.disjkstra();
 
+
             //중간 역들 저장 및 "," 기준으로 나누어 sts배열에 저장
             String need_stations = dijsktra.stations;
             String[] sts = need_stations.split(",");
@@ -154,11 +159,33 @@ public class DirectionActivity extends AppCompatActivity {
             EditText stTest = (EditText) findViewById(R.id.stations_view);
             stTest.setText(Arrays.toString(stData));
 
+            int nntime = dijsktra.ntime;
+            EditText nText = (EditText) findViewById(R.id.nTime2);
+            nText.setText(String.valueOf(nntime)+"분");
+
 
         } catch (IOException e) {
             System.err.println(e); // 에러가 있다면 메시지 출력
             System.exit(1);
         }
+
+        Button bButton = (Button) findViewById(R.id.BackButton);
+        bButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent1 = new Intent(getApplicationContext(), ChatbotActivity.class);
+                startActivity(intent1);
+            }
+        });
+
+        Button hButton = (Button) findViewById(R.id.HButton);
+        hButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent2);
+            }
+        });
 
     }
 }

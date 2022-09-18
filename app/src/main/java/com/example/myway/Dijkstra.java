@@ -7,11 +7,12 @@ import java.util.Arrays;
 public class Dijkstra {
 
     private ListGraph graph;
-    private int distance[];
+    public int distance[];
     private HashSet Set;
     private HashMap<Integer, Integer> prevMap;
     private StationNode depart;
     private String arrival;
+    public int ntime=0;
 
     public String stations;
 
@@ -38,6 +39,7 @@ public class Dijkstra {
             distance[edge.getVertex()]=edge.getInterval();//change the distance of edge to t
         }
 
+
         for(int i=0; i<distance.length; i++){
             int small=SmallestDistance(distance);//station node's vertex number that has the smallest distance
             Set.add(small);
@@ -54,11 +56,13 @@ public class Dijkstra {
                     distance[node.getVertex()]=distance[small]+node.getInterval();
                     StationNode prev=graph.findNode(small);
                     prevMap.put(node.getVertex(), prev.getVertex());
+
                     if(node.getStation().equals(arrival)){
                         System.out.println(depart.getStation());
                         traverseStations(node.getVertex());
                         System.out.println(arrival);
-
+                        //소요시간 저장
+                        ntime = distance[node.getVertex()];
 
                         return;//end the method
                     }
@@ -78,7 +82,9 @@ public class Dijkstra {
         if(prevMap.containsKey(prevMap.get(vertex)))
             traverseStations(prevMap.get(vertex));
     }
-    private int SmallestDistance(int input[]){//find the smallest distance[v]
+
+
+    public int SmallestDistance(int input[]){//find the smallest distance[v]
         int minValue=-1;
         int min=-1;
         for(int i=0; i<input.length; i++){
@@ -94,6 +100,7 @@ public class Dijkstra {
         }
         return min;
     }
+
 
 
 }
