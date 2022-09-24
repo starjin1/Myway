@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myway.adapters.ChatAdapter;
@@ -70,6 +73,13 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatbot);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.chat_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("길찾기 또봇");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.bot_icon);
+
         AlertDialog.Builder oDialog = new AlertDialog.Builder(this,
                 android.R.style.Theme_DeviceDefault_Light_Dialog);
         oDialog.setMessage("길찾기를 수행하기 위해 '길찾기'라고 입력해주세요.")
@@ -109,6 +119,7 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
 
         setUpBot();
     }
+
 
     private void setUpBot(){
         try{
@@ -185,6 +196,21 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu ) {
+        getMenuInflater().inflate(R.menu.chat_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_cancel) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
