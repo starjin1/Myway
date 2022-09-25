@@ -1,8 +1,11 @@
 package com.example.myway;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText mEmail, mPassword;
     private GoogleSignInClient mGoogleSignClient;
     private int RC_SIGN_IN = 123;
+    public static String PREFS_NAME = "MyPrefsFile";
 
 
     @Override
@@ -49,6 +53,13 @@ public class LoginActivity extends AppCompatActivity {
         if (acct!=null){
             naviationToSecondActivity();
         }
+
+        String NameData = getIntent().getStringExtra("userName");
+
+//        Intent getName = getIntent();
+//        String name = getName.getStringExtra("userName");
+//        Log.i("Name",name);
+
 
         mEmail =  (EditText) findViewById(R.id.EmailLoginEd);
         mPassword = (EditText) findViewById(R.id.PasswordLogEd);
@@ -68,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 String userEmail = mEmail.getText().toString();
                 String userPassword = mPassword.getText().toString();
 
+
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -75,15 +87,25 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if(success){
-                                Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
-
                                 String userEmail = jsonResponse.getString("userEmail");
                                 String userPassword = jsonResponse.getString("userPassword");
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                // 로그인 하면서 사용자 정보 넘기기
-                                intent.putExtra("userEmail", userEmail);
-                                intent.putExtra("userPassword", userPassword);
+                                String userName = jsonResponse.get("userName").toString();
+                                Toast.makeText(getApplicationContext(), "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                                if (userName.isEmpty()) {
+                                    Log.i("로그인 Name 데이터 없음","Null");
+                                } else {
+                                    Log.i("로그인 Name 데이터 있음",userName);
+                                }
+                                SharedPreferences sharedPreferences = getSharedPreferences("sharedPreferences", Activity.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("userEmail",userEmail);
+                                editor.putString("userPassword",userPassword);
+                                editor.putString("userName",userName);
+                                editor.commit();
+                                Toast.makeText(getApplicationContext(), userName+"님 환영합니다", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
+                                finish();
 
                             } else {
                                 Toast.makeText(getApplicationContext(), "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
@@ -95,12 +117,13 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
 
-                LoginRequest loginRequest = new LoginRequest(userEmail, userPassword, responseListener);
+                LoginRequest loginRequest = new LoginRequest(userEmail, userPassword,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
 
             }
         });
+
         Button btnRegister = (Button) findViewById(R.id.registerBtn);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent,RC_SIGN_IN);
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
@@ -152,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     void naviationToSecondActivity() {
-        Intent intent = new Intent(LoginActivity.this,MypageActivity.class);
+        Intent intent = new Intent(LoginActivity.this,GoogleLoginActvity.class);
         startActivity(intent);
     }
 
@@ -176,6 +200,8 @@ public class LoginActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.home) {
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
             super.onBackPressed();
             return true;
         }

@@ -53,7 +53,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/main_find_load"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -68,9 +68,9 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
-    </Button>
+    </androidx.appcompat.widget.AppCompatButton>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/main_linemap"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -85,7 +85,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/main_search"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -128,6 +128,6 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/main_calendar"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_circle_plus_solid" />
+        app:srcCompat="@drawable/ic_circle_plus_solid2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

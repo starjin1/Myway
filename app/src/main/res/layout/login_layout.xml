@@ -74,7 +74,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/EmailLoginEd" />
 
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/googleBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -91,7 +91,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/PasswordLogEd"
                     tools:ignore="MissingConstraints" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/LoginBtn"
                     android:layout_width="199dp"
                     android:layout_height="52dp"
@@ -104,7 +104,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/googleBtn" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/registerBtn"
                     android:layout_width="199dp"
                     android:layout_height="52dp"

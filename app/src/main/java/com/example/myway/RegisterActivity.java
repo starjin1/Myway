@@ -49,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
 
 
+
         Button regBtn = (Button) findViewById(R.id.registerBtn);
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.i("값 받아옴", response + "회원가입 값 받아옴");
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean success = jsonResponse.getBoolean("success");
-                                    if (success) { // 회원가입이 가능한다
+                                    if (success) { // 회원가입이 가능하다면
                                         Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                         startActivity(intent);

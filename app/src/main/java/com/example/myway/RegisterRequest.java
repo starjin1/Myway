@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
-    final static private String URL = "http://ec2-52-90-40-223.compute-1.amazonaws.com/Register.php";
+    final static private String URL = "http://ec2-54-89-49-232.compute-1.amazonaws.com/Register.php";
     private Map<String,String> map;
 
 
